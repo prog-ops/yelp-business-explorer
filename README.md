@@ -15,6 +15,7 @@ Full Stack MERN & Mediator Backend for ReactJS
 2. **Frontend**
    - Vite + React + Tailwind CSS.
    - Features: Pagination, Search, Filtering, Debouncing.
+3. NPM Workspaces (Monorepo tool)
 
 ## Cara Menjalankan (Project Fix)
 
