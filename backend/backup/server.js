@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors"
 import bodyParser from "body-parser"
 import FileUpload from "express-fileupload"
-import ProdukRoute from "./route/ProdukRoute.js";
+import ProdukRoute from "../route/ProdukRoute.js";
 
 const app = express();
 
