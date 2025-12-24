@@ -1,0 +1,17 @@
+{
+  "name": "business-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo for Yelp-like App and Product Management",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+    "dev": "concurrently \"npm run start --workspace=backend\" \"npm run dev --workspace=frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
