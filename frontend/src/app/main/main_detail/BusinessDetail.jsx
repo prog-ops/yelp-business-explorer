@@ -76,6 +76,7 @@ const BusinessDetail = () => {
                         <div className="flex flex-wrap">
                             {businessDetail.categories.map((item, index) => (
                                 <div
+                                    key={`${item.alias}-${index}`}
                                     className="bg-blue-800 text-amber-300 text-sm px-2 py-1 rounded-full mr-2 mb-2">
                                     {item.title}
                                 </div>
@@ -89,6 +90,7 @@ const BusinessDetail = () => {
                         <div className="flex flex-wrap">
                             {businessDetail.transactions.map((item, index) => (
                                 <div
+                                    key={`transaction-${index}`}
                                     className="bg-blue-800 text-white text-sm px-2 py-1 rounded-full mr-2 mb-2">
                                     {item === 'restaurant_reservation' ? 'RESTAURANT RESERVATION' : item.toUpperCase()}
                                 </div>
