@@ -1,15 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {useNodeAPI} from "../hooks/useNodeAPI.jsx";
 import {Link} from 'react-router-dom'
 import {getOptimizedImage} from "../utils/imageOptimizer.js";
+import {useDebounce} from "../hooks/useDebounce.js";
 
 const inputs = 'rounded-md p-2 me-4'
 
-const BusinessList = () => {
+const BusinessList = memo(() => {
     const { businesses, loadBusinesses, loadBusinessDetail, setSearchTerm, searchTerm, setCategories, categories, setPrice, price } = useNodeAPI();
     const [term, setTerm] = useState('');
     const [category, setCategory] = useState('');
     const [priceFilter, setPriceFilter] = useState('');
+    const debouncedTerm = useDebounce(term, 500);
 
     useEffect(() => {
         loadBusinesses(true, searchTerm, categories, price);// Load initial set of businesses on mount
@@ -25,17 +27,13 @@ const BusinessList = () => {
 
     // Debouncing for search function so if search button is not pressed after querying, after 3s it will automatically apply the params search. Debounce only if there is/are query/queries
     useEffect(() => {
-        if (term || category || priceFilter) {
-            const handler = setTimeout(() => {
-                setSearchTerm(term);
-                setCategories(category);
-                setPrice(priceFilter);
-                loadBusinesses(true, term, category, priceFilter);
-            }, 3_000);
-            // Cleanup function to clear the timeout if the user types again
-            return () => clearTimeout(handler);
+        if (debouncedTerm || category || priceFilter) {
+            setSearchTerm(debouncedTerm );
+            setCategories(category);
+            setPrice(priceFilter);
+            loadBusinesses(true, term, category, priceFilter);
         }
-    }, [term, category, priceFilter]);
+    }, [debouncedTerm, category, priceFilter]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -116,11 +114,11 @@ const BusinessList = () => {
                                     {business.categories.length > 0 ?
                                         <div className="flex flex-wrap">
                                             {business.categories.map((item, index) => (
-                                                    <div
-                                                        className="bg-blue-800 text-amber-300 text-sm px-2 py-1 rounded-full mr-2 mb-2">
-                                                        {item.title}
-                                                    </div>
-                                                ))
+                                                <div
+                                                    className="bg-blue-800 text-amber-300 text-sm px-2 py-1 rounded-full mr-2 mb-2">
+                                                    {item.title}
+                                                </div>
+                                            ))
                                             }
                                         </div>
                                         : null
@@ -128,11 +126,11 @@ const BusinessList = () => {
                                     {business.transactions.length > 0 ?
                                         <div className="flex flex-wrap">
                                             {business.transactions.map((item, index) => (
-                                                    <div
-                                                        className="bg-blue-800 text-white text-sm px-2 py-1 rounded-full mr-2 mb-2">
-                                                        {item === 'restaurant_reservation' ? 'RESTAURANT RESERVATION' : item.toUpperCase()}
-                                                    </div>
-                                                ))
+                                                <div
+                                                    className="bg-blue-800 text-white text-sm px-2 py-1 rounded-full mr-2 mb-2">
+                                                    {item === 'restaurant_reservation' ? 'RESTAURANT RESERVATION' : item.toUpperCase()}
+                                                </div>
+                                            ))
                                             }
                                         </div>
                                         : null
@@ -158,6 +156,8 @@ const BusinessList = () => {
             )}
         </div>
     );
-};
+
+    console.log('Render BusinessList'); // Cek re-render
+});
 
 export default BusinessList;
