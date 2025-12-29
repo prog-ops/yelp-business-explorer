@@ -1,11 +1,10 @@
 import React from 'react';
-import {YelpProvider} from "../hooks/useNodeAPI.jsx";
 import BusinessList from "./BusinessList.jsx";
 
-const BusinessApp = () => {
+const BusinessAppContainer = () => {
     return (
         <BusinessList/>
     );
 };
 
-export default BusinessApp;
+export default BusinessAppContainer;

@@ -4,7 +4,7 @@ import React, {lazy, Suspense} from "react";
 import {YelpProvider} from "./app/hooks/useNodeAPI.jsx";
 
 // Lazy load components
-const LazyBusinessApp = lazy(() => import("./app/main/BusinessApp.jsx"));
+const LazyBusinessApp = lazy(() => import("./app/main/BusinessAppContainer.jsx"));
 const LazyBusinessDetail = lazy(() => import("./app/main/main_detail/BusinessDetail.jsx"));
 
 function App() {
