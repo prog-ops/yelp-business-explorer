@@ -93,15 +93,16 @@ const BusinessList = () => {
                                 className="overflow-hidden flex relative bg-blue-950 rounded-3xl shadow-lg shadow-blue-950 hover:bg-blue-900 mb-8"
                                 style={{height: '300px'}} // Set a fixed height for the list item
                             >
-                                <img
-                                    className="w-1/5 object-cover rounded-lg"
-                                    src={getOptimizedImage(business.image_url, 300)} // Resize ke 300px
-                                    alt={business.name}
-                                    loading="lazy" // Native lazy loading
-                                    width="300"
-                                    height="250"
-                                    style={{height: '100%'}} // Ensure the image takes the full height of its container
-                                />
+                                <div className="w-1/5">
+                                    <div className="aspect-ratio-box rounded-lg overflow-hidden">
+                                        <img
+                                            className="absolute top-0 left-0 w-full h-full object-cover"
+                                            src={getOptimizedImage(business.image_url, 300)}
+                                            alt={business.name}
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                </div>
                                 <div
                                     className="flex-grow px-4 py-4 flex flex-col justify-between relative ml-2"> {/* Adjusted container to grow and added margin-left */}
                                     <div
