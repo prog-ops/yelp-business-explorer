@@ -1,13 +1,11 @@
 import './App.css'
-import BusinessApp from "./app/main/BusinessApp.jsx";
 import {Route, BrowserRouter, Routes} from "react-router-dom";
 import React, {lazy, Suspense} from "react";
-import BusinessDetail from "./app/main/main_detail/BusinessDetail.jsx";
 import {YelpProvider} from "./app/hooks/useNodeAPI.jsx";
 
 // Lazy load components
-const BusinessApp = lazy(() => import("./app/main/BusinessApp.jsx"));
-const BusinessDetail = lazy(() => import("./app/main/main_detail/BusinessDetail.jsx"));
+const LazyBusinessApp = lazy(() => import("./app/main/BusinessApp.jsx"));
+const LazyBusinessDetail = lazy(() => import("./app/main/main_detail/BusinessDetail.jsx"));
 
 function App() {
     return (
@@ -15,8 +13,8 @@ function App() {
             <BrowserRouter>
                 <Suspense fallback={<div className="skeleton-loading">Loading App...</div>}>
                     <Routes>
-                        <Route path="/" element={<BusinessApp />} />
-                        <Route path="/business/:id" element={<BusinessDetail />} />
+                        <Route path="/" element={<LazyBusinessApp />} />
+                        <Route path="/business/:id" element={<LazyBusinessDetail />} />
                     </Routes>
                 </Suspense>
             </BrowserRouter>
