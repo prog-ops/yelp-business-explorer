@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNodeAPI} from "../hooks/useNodeAPI.jsx";
 import {Link} from 'react-router-dom'
+import {getOptimizedImage} from "../utils/imageOptimizer.js";
 
 const inputs = 'rounded-md p-2 me-4'
 
@@ -94,8 +95,11 @@ const BusinessList = () => {
                             >
                                 <img
                                     className="w-1/5 object-cover rounded-lg"
-                                    src={business.image_url}
+                                    src={getOptimizedImage(business.image_url, 300)} // Resize ke 300px
                                     alt={business.name}
+                                    loading="lazy" // Native lazy loading
+                                    width="300"
+                                    height="250"
                                     style={{height: '100%'}} // Ensure the image takes the full height of its container
                                 />
                                 <div
