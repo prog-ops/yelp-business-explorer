@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, {createContext, useState, useContext, useMemo} from 'react';
 
 const YelpContext = createContext();
 
@@ -48,19 +48,21 @@ export const YelpProvider = ({ children }) => {
         }
     };
 
+    const value = useMemo(() => ({
+        businesses,
+        businessDetail,
+        loadBusinesses,
+        loadBusinessDetail,
+        setSearchTerm,
+        searchTerm,
+        setCategories,
+        categories,
+        setPrice,
+        price
+    }), [businesses, businessDetail, searchTerm, categories, price]);
+
     return (
-        <YelpContext.Provider value={{
-            businesses,
-            businessDetail,
-            loadBusinesses,
-            loadBusinessDetail,
-            setSearchTerm,
-            searchTerm,
-            setCategories,
-            categories,
-            setPrice,
-            price
-        }}>
+        <YelpContext.Provider value={value}>
             {children}
         </YelpContext.Provider>
     );
