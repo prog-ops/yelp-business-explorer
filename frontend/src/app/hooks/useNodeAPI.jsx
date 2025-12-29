@@ -2,8 +2,9 @@ import React, {createContext, useState, useContext, useMemo} from 'react';
 
 const YelpContext = createContext();
 
-const backendUrl = 'http://localhost:3001/api/yelp'
+// const backendUrl = 'http://localhost:3001/api/yelp'
 // const url = `${backendUrl}?offset=${currentOffset}&limit=${limit}&term=${term}&categories=${categories}&price=${price}`
+const backendUrl = import.meta.env.VITE_API_URL;
 
 export const YelpProvider = ({ children }) => {
     const [businesses, setBusinesses] = useState([]);
