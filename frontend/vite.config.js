@@ -44,5 +44,11 @@ export default defineConfig(({ mode }) => {
                 'Cache-Control': 'public, max-age=31536000', // HANYA UNTUK DEV SERVER - TIDAK IMPACT PRODUCTION
             },
         },
+        test: {
+            globals: true,
+            environment: 'jsdom',
+            setupFiles: './src/test/setup.js',
+            css: true,
+        },
     }
 })
