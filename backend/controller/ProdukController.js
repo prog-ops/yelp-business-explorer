@@ -136,8 +136,9 @@ export const addProduk = (req, res) => {
             }
         });
         if (existingProduct) {
-            throw new Error('Product with the same name already exists');
-
+            // Hapus file yang sudah terlanjur di-upload karena produk ditolak
+            if (fs.existsSync(`./public/images/${fileName}`)) fs.unlinkSync(`./public/images/${fileName}`);
+            return res.status(409).json({msg: 'Produk dengan nama yang sama sudah ada.'});
         } else {
             try {
                 await Produk.create({
@@ -187,15 +188,21 @@ export const editProduk = async (req, res) => {
         if (size > 100_000)
             return res.status(422).json({msg: "Ukuran gambar tidak boleh lebih dari 100KB."})
 
-        // Hapus photo lama
+        // Hapus photo lama jika ada
         const filePath = `./public/images/${produk.photo}`
-        fs.unlinkSync(filePath)
+        if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
 
-        file.mv(`./public/images/${photo}`, error => {
-            if (error)
-                return res.status(500).json({msg: error.message})
-
-        })
+        // Tunggu file tersimpan dulu sebelum update DB
+        try {
+            await new Promise((resolve, reject) => {
+                file.mv(`./public/images/${photo}`, (error) => {
+                    if (error) reject(error);
+                    else resolve();
+                });
+            });
+        } catch (e) {
+            return res.status(500).json({msg: e.message});
+        }
     }
     const name = req.body.name
     const buyPrice = req.body.buy_price
@@ -251,7 +258,7 @@ export const removeProduk = async (req, res) => {
         try {
             // delete locally
             const filePath = `./public/images/${produk.photo}`
-            fs.unlinkSync(filePath)
+            if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
 
             // then delete on db also
             await Produk.destroy({
