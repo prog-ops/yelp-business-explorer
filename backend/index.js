@@ -55,7 +55,7 @@ app.get('/api/yelp', async (req, res) => {
         res.json(response.data);
     } catch (error) {
         console.error('Error details:', error.response ? error.response.data : error.message);
-        res.status(500).send(error.toString());
+        res.status(500).json({ error: error.message });
     }
 });
 
