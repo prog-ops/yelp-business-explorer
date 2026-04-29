@@ -105,7 +105,7 @@ const BusinessDetail = () => {
                     <p>Review Count: {businessDetail.review_count}</p>
                     <p>{businessDetail.price}</p>
                     <p>{businessDetail.display_phone}</p>
-                    <p>{businessDetail.is_closed ? "OPEN NOW" : "Closed"}</p>
+                    <p className={businessDetail.is_closed ? "text-red-400" : "text-green-400"}>{businessDetail.is_closed ? "Closed" : "OPEN NOW"}</p>
                     <a
                         href={businessDetail.url}
                         target="_blank"
