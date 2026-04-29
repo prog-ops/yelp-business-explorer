@@ -175,7 +175,7 @@ export const editProduk = async (req, res) => {
     // Whether user wanna update the image or not
     let photo
     if (req.files === null) {
-        photo = Produk.photo
+        photo = produk.photo
     } else {
         const file = req.files.file
         const size = file.data.length
