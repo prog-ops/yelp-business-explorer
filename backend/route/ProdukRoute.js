@@ -10,11 +10,16 @@ import express from "express";
 
 const router = express.Router()
 
+// /produk/search
 router.get('/produk/search', searchProduk)
+
+// /produk
 router.get('/produk', getProdukList)
-router.get('/produk/:id', getProdukById)
 router.post('/produk', addProduk)
-router.patch('/produk/:id', editProduk)
+
+// /produk/:id
+router.get('/produk/:id', getProdukById)
+router.patch('/produk/:id', editProduk) // patch itu update sebagian, sedangkan put ganti total
 router.delete('/produk/:id', removeProduk)
 
 export default router;
