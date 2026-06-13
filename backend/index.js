@@ -24,6 +24,8 @@ const apiUrlDetail = process.env.YELP_API_URL_DETAIL;
 
 // =======================
 // Yelp Proxy Routes
+// Untuk Yelp, bisa saja buatkan controller nya (eg. YelpController) dan routenya (eg. YelpRoute)
+// tapi karena cuma dua route jadi cukup tulis disini saja utk pembelajaran
 // =======================
 app.get('/api/yelp', async (req, res) => {
     try {
