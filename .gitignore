@@ -1,55 +1,40 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-# Stack: Create React App (react-scripts) + TypeScript, deployed to Vercel / gh-pages.
-#
-# NOTE: Lockfiles (package-lock.json / yarn.lock / pnpm-lock.yaml) are intentionally
-# NOT ignored — commit them for reproducible installs (`npm ci`).
+# ============================================
+# .gitignore untuk yelp-business-explorer
+# Monorepo: NPM Workspaces (Express + MySQL + Vite/React)
+# ============================================
 
-# ─────────────────────────────────────────────
-# Dependencies
-# ─────────────────────────────────────────────
+# ---------- Dependensi ----------
 node_modules/
 jspm_packages/
 web_modules/
-bower_components/
-
-# Yarn Plug'n'Play / Berry
-/.pnp
-.pnp.js
-.pnp.cjs
-.pnp.loader.mjs
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-
-# pnpm
 .pnpm-store/
 
-# ─────────────────────────────────────────────
-# Build output
-# ─────────────────────────────────────────────
-/build
-/dist
-/out
+# ---------- Output Build (Vite & Express) ----------
+# Vite menggunakan `dist`, Express mungkin menggunakan `build` atau `dist`
+dist/
+build/
+out/
 .gh-pages/
 *.tsbuildinfo
 
-# ─────────────────────────────────────────────
-# Testing & coverage
-# ─────────────────────────────────────────────
-/coverage
+# ---------- Backend Spesifik (Express + MySQL) ----------
+# Abaikan file database lokal jika ada
+*.sqlite
+*.sqlite3
+*.db
+# Abaikan folder unggahan jika backend menangani upload file
+uploads/
+
+# ---------- Testing & Coverage ----------
+coverage/
 .nyc_output/
 junit.xml
 test-results/
 playwright-report/
-/cypress/videos/
-/cypress/screenshots/
+cypress/videos/
+cypress/screenshots/
 
-# ─────────────────────────────────────────────
-# Cache
-# ─────────────────────────────────────────────
+# ---------- Cache ----------
 .cache/
 .parcel-cache/
 .eslintcache
@@ -61,9 +46,7 @@ node_modules/.cache/
 .temp/
 .tmp/
 
-# ─────────────────────────────────────────────
-# Environment variables / secrets
-# ─────────────────────────────────────────────
+# ---------- Environment Variables & Secrets ----------
 .env
 .env.local
 .env.*.local
@@ -74,15 +57,11 @@ node_modules/.cache/
 *.pem
 *.key
 
-# ─────────────────────────────────────────────
-# Deployment platforms
-# ─────────────────────────────────────────────
+# ---------- Deployment Platforms ----------
 .vercel
 .netlify
 
-# ─────────────────────────────────────────────
-# Logs
-# ─────────────────────────────────────────────
+# ---------- Logs ----------
 logs/
 *.log
 npm-debug.log*
@@ -90,25 +69,21 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+bun-debug.log*
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-# ─────────────────────────────────────────────
-# Editors & IDEs
-# ─────────────────────────────────────────────
-# JetBrains (WebStorm, IntelliJ)
+# ---------- Editors & IDEs ----------
+# JetBrains
 .idea/
 *.iml
 *.ipr
 *.iws
-out/
-
-# VS Code (keep shared workspace settings)
+# VS Code (simpan pengaturan bersama)
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/launch.json
 *.code-workspace
-
 # Vim / Emacs / misc
 *.swp
 *.swo
@@ -116,9 +91,7 @@ out/
 \#*\#
 .\#*
 
-# ─────────────────────────────────────────────
-# OS generated files
-# ─────────────────────────────────────────────
+# ---------- OS Generated Files ----------
 # macOS
 .DS_Store
 .AppleDouble
@@ -126,13 +99,19 @@ out/
 ._*
 .Spotlight-V100
 .Trashes
-
 # Windows
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
-
 # Linux
 .directory
 .Trash-*
+
+# ---------- Lockfile Manajer Paket ----------
+# Proyek ini menggunakan NPM Workspaces. Commit package-lock.json di root.
+# Namun, frontend memiliki bun.lock. Sebaiknya konsisten menggunakan satu manajer paket.
+# Untuk saat ini, abaikan lockfile lain agar tidak membingungkan.
+# yarn.lock
+# pnpm-lock.yaml
+# (Catatan: package-lock.json TIDAK diabaikan karena proyek menggunakan NPM Workspaces)
